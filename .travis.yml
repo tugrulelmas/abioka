@@ -1,13 +1,11 @@
 sudo: required
-
 language: ruby
-
+addons:
+  apt:
+    packages:
+      - docker-ce
 services:
   - docker
-
-addons:
-  packages:
-    - docker-ce
 
 before_install:
   - docker build -t tugrulelmas/abioka-com .
