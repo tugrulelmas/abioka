@@ -1,4 +1,4 @@
-FROM node as nodeBuild
+FROM node:slim as nodeBuild
 
 RUN npm install gulp-cli -g
 COPY package.json /tmp/package.json
