@@ -21,10 +21,5 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "prod" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push tugrulelmas/abioka-com;
+    bash deploy.sh;
     fi
-    
-deploy:
-  provider: script
-  script: deploy.sh
-  on:
-    branch: prod
