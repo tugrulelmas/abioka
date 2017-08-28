@@ -14,6 +14,6 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "prod" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push tugrulelmas/abioka-com;
+    openssl aes-256-cbc -K $encrypted_b06a18ef0598_key -iv $encrypted_b06a18ef0598_iv -in abioka-linux.pem.enc -out ssh/abioka-linux.pem -d;
+    docker run --name abioka -d -p 80:80 tugrulelmas/abioka-com
     fi
-  - openssl aes-256-cbc -K $encrypted_b06a18ef0598_key -iv $encrypted_b06a18ef0598_iv -in abioka-linux.pem.enc -out ssh/abioka-linux.pem -d
-  - docker stack deploy -c docker-compose.yml abioka
