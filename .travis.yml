@@ -21,5 +21,5 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "prod" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push tugrulelmas/abioka-com;
-    ssh -i "abioka-linux.pem" ec2-user@ec2-35-158-221-148.eu-central-1.compute.amazonaws.com bash deploy.sh;
+    bash deploy.sh;
     fi
