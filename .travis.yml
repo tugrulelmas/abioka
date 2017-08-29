@@ -15,14 +15,13 @@ before_install:
   - chmod 400 abioka-linux.pem
 
 script:
-  - docker build -t tugrulelmas/abioka-com .
+  - docker build -t tugrulelmas/abioka-com:latest -t tugrulelmas/abioka-com:$TRAVIS_COMMIT .
   
 after_success:
   - if [ "$TRAVIS_BRANCH" == "prod" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker tag $TRAVIS_COMMIT tugrulelmas/abioka-com
     docker push tugrulelmas/abioka-com:$TRAVIS_COMMIT;
-    docker push tugrulelmas/abioka-com;
+    docker push tugrulelmas/abioka-com:latest;
     scp -i "abioka-linux.pem" docker-compose.yml ec2-user@ec2-35-158-221-148.eu-central-1.compute.amazonaws.com:~;
     bash deploy.sh $TRAVIS_COMMIT;
     fi
