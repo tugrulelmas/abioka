@@ -7,7 +7,6 @@ services:
     environment:
       - NGINX_HOST=abioka.com
       - NGINX_PORT=80
-      - ABIOKA_TAG
     networks:
       - webnet
 networks:
