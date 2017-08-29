@@ -24,5 +24,5 @@ after_success:
     docker push tugrulelmas/abioka-com:$TRAVIS_COMMIT;
     docker push tugrulelmas/abioka-com;
     scp -i "abioka-linux.pem" docker-compose.yml ec2-user@ec2-35-158-221-148.eu-central-1.compute.amazonaws.com:~;
-    bash deploy.sh;
+    bash deploy.sh $TRAVIS_COMMIT;
     fi
