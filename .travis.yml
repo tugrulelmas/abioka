@@ -1,10 +1,11 @@
 sudo: required
 language: ruby
 env:
-  - RemoteHost=ec2-35-158-221-148.eu-central-1.compute.amazonaws.com
-  - RemoteUser=ec2-user
-  - IMAGE_NAME=tugrulelmas/abioka-com
-  - SSHKey=abioka-linux.pem
+  global:
+    - RemoteHost=ec2-35-158-221-148.eu-central-1.compute.amazonaws.com
+    - RemoteUser=ec2-user
+    - IMAGE_NAME=tugrulelmas/abioka-com
+    - SSHKey=abioka-linux.pem
 addons:
   apt:
     packages:
