@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: tugrulelmas/abioka-com:$TRAVIS_COMMIT
+    image: tugrulelmas/abioka-com:$ABIOKA_TAG
     ports:
       - "80:80"
     environment:
