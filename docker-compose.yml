@@ -1,12 +1,13 @@
 version: '3'
 services:
   app:
-    image: tugrulelmas/abioka-com:$ABIOKA_TAG
+    image: tugrulelmas/abioka-com:${ABIOKA_TAG}
     ports:
       - "80:80"
     environment:
       - NGINX_HOST=abioka.com
       - NGINX_PORT=80
+      - ABIOKA_TAG
     networks:
       - webnet
 networks:
