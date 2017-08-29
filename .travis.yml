@@ -3,7 +3,7 @@ language: ruby
 env:
   - RemoteHost=ec2-35-158-221-148.eu-central-1.compute.amazonaws.com
   - RemoteUser=ec2-user
-  - ImageName=tugrulelmas/abioka-com
+  - IMAGE_NAME=tugrulelmas/abioka-com
   - SSHKey=abioka-linux.pem
 addons:
   apt:
@@ -20,13 +20,13 @@ before_install:
   - chmod 400 $SSHKey
 
 script:
-  - docker build -t $ImageName:latest -t $ImageName:$TRAVIS_COMMIT .
+  - docker build -t "$IMAGE_NAME":latest -t "$IMAGE_NAME":$TRAVIS_COMMIT .
   
 after_success:
   - if [ "$TRAVIS_BRANCH" == "prod" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push $ImageName:$TRAVIS_COMMIT;
-    docker push $ImageName:latest;
+    docker push "$IMAGE_NAME":$TRAVIS_COMMIT;
+    docker push "$IMAGE_NAME":latest;
     sed -i 's/${ABIOKA_TAG}/' >> "$TRAVIS_COMMIT" >>'/g' docker-compose.yml
     scp -i "$SSHKey" docker-compose.yml $RemoteUser@$RemoteHost:~;
     bash deploy.sh "$TRAVIS_COMMIT";
