@@ -14,6 +14,7 @@ services:
   - docker
   
 before_install:
+  - echo "$REMOTE_HOST"
   - openssl aes-256-cbc -K $encrypted_b06a18ef0598_key -iv $encrypted_b06a18ef0598_iv
     -in abioka-linux.pem.enc -out abioka-linux.pem -d
   - rm abioka-linux.pem.enc
