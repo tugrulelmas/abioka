@@ -2,19 +2,16 @@ sudo: required
 language: ruby
 env:
   global:
-    - REMOTE_HOST=ec2-35-158-221-148.eu-central-1.compute.amazonaws.com
-    - REMOTE_USER=ec2-user
     - IMAGE_NAME=tugrulelmas/abioka-com
 addons:
   apt:
     packages:
       - docker-ce
-  ssh_known_hosts: "$REMOTE_HOST"
+  ssh_known_hosts: ec2-35-158-221-148.eu-central-1.compute.amazonaws.com
 services:
   - docker
   
 before_install:
-  - echo "$REMOTE_HOST"
   - openssl aes-256-cbc -K $encrypted_b06a18ef0598_key -iv $encrypted_b06a18ef0598_iv
     -in abioka-linux.pem.enc -out abioka-linux.pem -d
   - rm abioka-linux.pem.enc
@@ -29,6 +26,6 @@ after_success:
     docker push "$IMAGE_NAME":"$TRAVIS_COMMIT";
     docker push "$IMAGE_NAME":latest;
     sed -i 's/${ABIOKA_TAG}/' >> "$TRAVIS_COMMIT" >>'/g' docker-compose.yml
-    scp -i abioka-linux.pem docker-compose.yml "$REMOTE_USER"@"$REMOTE_HOST":~;
+    scp -i abioka-linux.pem docker-compose.yml ec2-user@ec2-35-158-221-148.eu-central-1.compute.amazonaws.com:~;
     bash deploy.sh "$TRAVIS_COMMIT";
     fi
