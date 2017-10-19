@@ -1,6 +1,6 @@
-ssh -v -i "abioka-linux.pem" ec2-user@ec2-35-158-221-148.eu-central-1.compute.amazonaws.com <<-'ENDSSH'
+ssh -v -i "abioka-linux2.pem" ubuntu@ec2-35-177-32-171.eu-west-2.compute.amazonaws.com <<-'ENDSSH'
   docker system prune -af
-  env ABIOKA_TAG=latest docker stack deploy -c docker-compose.yml abioka
+  docker stack deploy -c docker-compose.yml abioka
   docker images
   docker ps
   docker service ls
